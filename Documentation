@@ -1,0 +1,45 @@
+Documentation
+This script automates the process of opening Google Chrome in Guest mode, navigating through a series of URLs, and clicking specific images on the screen when they appear. If specific images are found (e.g., an end screen indicating the video is over), the script closes the browser and moves to the next URL in the list.
+
+Requirements
+Modules:
+
+pyautogui: Provides functions for controlling the mouse and keyboard and for locating images on the screen.
+Install with pip install pyautogui.
+os: Standard Python module used for path and file handling.
+time: Standard Python module used to add delays between actions.
+Required Files:
+
+play.png, endscreen.png, and endscreen2.jpg: Image files required for locating and clicking specific elements on the screen.
+These files must be placed in the same folder as this script so that it can locate them using relative paths.
+chromeguest.lnk: A shortcut file that opens Chrome in Guest mode.
+Place the shortcut on the Desktop.
+Configure this shortcut by right-clicking it, selecting Properties, and entering --guest at the end of the Target field (e.g., "C:\Program Files\Google\Chrome\Application\chrome.exe" --guest).
+Recommended Setup Steps:
+
+Ensure the Chrome shortcut opens in Guest mode as this enables isolated, history-free browsing sessions each time Chrome is launched.
+The image files should be screenshots of the buttons or elements you want the program to click (e.g., "play" and "end screen" buttons). Ensure they are clear and of good resolution to improve detection accuracy with pyautogui.
+Code Explanation
+Script Structure: The main components of the code are as follows:
+
+see_and_click function:
+
+Purpose: Continuously searches for an image on the screen and clicks it when found. If the image isn't found within the specified attempts, it retries.
+Parameters:
+image_path: Path to the image to locate.
+confidence: The required accuracy level for image matching.
+wait_time: Seconds to wait between attempts.
+max_attempts: Maximum number of attempts to find the image (None means unlimited attempts).
+open_browser_and_click_links function:
+
+Purpose: Opens the browser, writes each URL from a list, and manages interaction with elements on the screen by checking for play, endscreen, and endscreen2 images.
+Function Flow:
+Launches Chrome in Guest mode.
+Enters each URL and attempts to click play.png.
+If endscreen.png or endscreen2.jpg appear, the browser window is closed, and the next URL is processed.
+main function:
+
+Purpose: Collects user input for the number of repetitions and URLs to process.
+Execution:
+Prompts for a list of URLs.
+Calls open_browser_and_click_links with the input links and repetition count.
